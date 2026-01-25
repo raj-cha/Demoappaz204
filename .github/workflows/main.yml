@@ -1,50 +1,9 @@
-name: Publish .NET Package to GitHub Packages
+name: Starter Pipeline
 
 on:
-  push:
-    branches:
-      - master #branch name
-
-
-permissions:
-  contents: read  #required to read repository-projects
-  packages: write   # REQUIRED to publish to GitHub Packages
+  branches: 
+    - master
 
 jobs:
-  build-and-publish:
-    runs-on: ubuntu-latest
-
-    steps:
-      # 1️⃣ Checkout source code
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 2️⃣ Setup .NET SDK
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.x'
-
-      # 3️⃣ Restore dependencies
-      - name: Restore dependencies
-        run: dotnet restore
-
-      # 4️⃣ Build solution
-      - name: Build solution
-        run: dotnet build
-
-      # 5️⃣ Pack (create NuGet package)
-      - name: Pack NuGet package
-        run: dotnet pack --output ./nupkg1
-
-      - name: Add GitHub Packages as NuGet source 
-        run: | 
-             dotnet nuget add source \
-              --username ibnehussain \
-              --password ${{ secrets.GITHUB_TOKEN }} \
-              --store-password-in-clear-text \
-              --name github "https://nuget.pkg.github.com/ibnehussain/index.json"
-
-      # 6️⃣ Publish package to GitHub Packages
-      - name: Publish to GitHub Packages
-        run: dotnet nuget push "./nupkg1/*.nupkg" --source github
+  test:
+    run: echo "Hello World!"
