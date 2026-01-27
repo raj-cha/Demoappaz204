@@ -26,7 +26,7 @@ jobs:
 
         
       - name: Publish- Create a NuGet Package
-        run: dotnet publish --output ./nupkg1
+        run: dotnet publish --output ./nupkg
 
       - name: Collect/upload artifact
         uses: actions/upload-artifact@v6.0.0
